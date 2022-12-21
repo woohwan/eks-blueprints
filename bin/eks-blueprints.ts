@@ -1,7 +1,6 @@
 // bin/my-eks-blueprints.ts
 import * as cdk from "aws-cdk-lib";
 import ClusterConstruct from "../lib/eks-blueprints-stack";
-import FluentBit from "../lib/fluentbit";
 import { SearchStack } from "../lib/search";
 
 const app = new cdk.App();
