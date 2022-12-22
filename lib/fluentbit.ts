@@ -1,4 +1,5 @@
 import * as blueprints from "@aws-quickstart/eks-blueprints";
+import { AwsForFluentBitAddOnProps } from "@aws-quickstart/eks-blueprints";
 import * as iam from "aws-cdk-lib/aws-iam";
 
 const domainWritePolicy = new iam.PolicyStatement({
@@ -7,17 +8,31 @@ const domainWritePolicy = new iam.PolicyStatement({
   effect: iam.Effect.ALLOW,
 });
 
-const FluentBit = new blueprints.addons.AwsForFluentBitAddOn({
+const props: AwsForFluentBitAddOnProps = {
+  //  must use the latest stable version
   version: "0.1.21",
   namespace: "logging",
   iamPolicies: [domainWritePolicy],
   values: {
-    elasticSearch: {
+    cloudWatch: {
+      enabled: false,
+      region: "ap-northeast-2",
+      logGroupName: "/aws/eks/fluentbit-cloudwatch/logs",
+    },
+    firehose: {
+      enabled: false,
+    },
+    kinesis: {
+      enabled: false,
+    },
+    elasticsearch: {
       enabled: true,
       awsRegion: "ap-northeast-2",
-      host: "https://search-search-test-ksnv2bglbhymqg5pe6zwierdxa.ap-northeast-2.es.amazonaws.com",
+      host: "search-search-test-ksnv2bglbhymqg5pe6zwierdxa.ap-northeast-2.es.amazonaws.com",
     },
   },
-});
+};
+
+const FluentBit = new blueprints.addons.AwsForFluentBitAddOn(props);
 
 export default FluentBit;
