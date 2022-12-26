@@ -26,6 +26,7 @@
     "constructs": "^10.0.0",
     "i": "^0.3.7",
     "npm": "^9.2.0",
-    "source-map-support": "^0.5.21"
+    "source-map-support": "^0.5.21",
+    "ts-deepmerge": "^5.0.0"
   }
 }
